@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pfenning Logistics - Part of Your Process</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #22398e;
+            --blue-dark: #1a2c72;
+            --blue-light: #2d47b8;
+            --blue-pale: #f0f3ff;
+            --accent-orange: #ff6b35;
+            --accent-green: #00c853;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --error: #f44336;
+            --info: #2196f3;
+            --gray-dark: #333333;
+            --gray-medium: #666666;
+            --gray-light: #f5f5f5;
+            --white: #ffffff;
+            --shadow: 0 8px 30px rgba(0,0,0,0.08);
+            --shadow-hover: 0 15px 40px rgba(0,0,0,0.12);
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--gray-dark);
+            overflow-x: hidden;
+            background-color: var(--white);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            padding: 5px 0;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 45px;
+            transition: var(--transition);
+        }
+
+        .logo-cube {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-blue);
+            margin-right: 12px;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(15deg) rotateY(15deg);
+            animation: cubeFloat 8s infinite ease-in-out;
+            box-shadow: 0 5px 15px rgba(34, 57, 142, 0.3);
+        }
+
+        @keyframes cubeFloat {
+            0%, 100% { transform: rotateX(15deg) rotateY(15deg) translateY(0); }
+            50% { transform: rotateX(20deg) rotateY(20deg) translateY(-10px); }
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 24px;
+            color: var(--primary-blue);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-item {
+            position: relative;
+            margin: 0 15px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--gray-dark);
+            font-weight: 500;
+            padding: 10px 0;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-blue);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 220px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: var(--gray-dark);
+            border-bottom: 1px solid var(--gray-light);
+            transition: var(--transition);
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: var(--blue-pale);
+            color: var(--primary-blue);
+            padding-left: 25px;
+        }
+
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            padding: 30px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .nav-item.mega:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .mega-column h4 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .mega-links {
+            list-style: none;
+        }
+
+        .mega-links li {
+            margin-bottom: 10px;
+        }
+
+        .mega-links a {
+            text-decoration: none;
+            color: var(--gray-medium);
+            transition: var(--transition);
+            display: block;
+            padding: 5px 0;
+        }
+
+        .mega-links a:hover {
+            color: var(--primary-blue);
+            transform: translateX(5px);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(34, 57, 142, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--blue-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(34, 57, 142, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        .mobile-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--primary-blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--blue-dark) 100%);
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            color: var(--white);
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s forwards 0.5s;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s forwards 0.7s;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 15px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s forwards 0.9s;
+        }
+
+        .hero-btn {
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .hero-btn.primary {
+            background: var(--accent-orange);
+            color: var(--white);
+            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        .hero-btn.primary:hover {
+            background: #e55a2b;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.5);
+        }
+
+        .hero-btn.secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .hero-btn.secondary:hover {
+            background: var(--white);
+            color: var(--primary-blue);
+            transform: translateY(-5px);
+        }
+
+        .floating-cubes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cube {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: float 15s infinite linear;
+        }
+
+        .cube:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .cube:nth-child(2) {
+            width: 40px;
+            height: 40px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+
+        .cube:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            top: 30%;
+            left: 70%;
+            animation-delay: 4s;
+        }
+
+        .cube:nth-child(4) {
+            width: 50px;
+            height: 50px;
+            top: 80%;
+            left: 20%;
+            animation-delay: 6s;
+        }
+
+        .cube:nth-child(5) {
+            width: 70px;
+            height: 70px;
+            top: 15%;
+            left: 50%;
+            animation-delay: 8s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--gray-medium);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .service-icon {
+            height: 120px;
+            background: var(--blue-pale);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-icon i {
+            font-size: 48px;
+            color: var(--primary-blue);
+            z-index: 2;
+            position: relative;
+        }
+
+        .service-content {
+            padding: 25px;
+        }
+
+        .service-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 12px;
+        }
+
+        .service-desc {
+            color: var(--gray-medium);
+            margin-bottom: 20px;
+        }
+
+        .service-link {
+            color: var(--primary-blue);
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .service-link i {
+            margin-left: 5px;
+            transition: var(--transition);
+        }
+
+        .service-link:hover i {
+            transform: translateX(5px);
+        }
+
+        /* USPs Section */
+        .usps {
+            padding: 100px 0;
+            background: var(--gray-light);
+        }
+
+        .usps-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .usps-content {
+            padding-right: 40px;
+        }
+
+        .usps-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        .usps-list {
+            list-style: none;
+        }
+
+        .usp-item {
+            display: flex;
+            margin-bottom: 25px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: var(--transition);
+        }
+
+        .usp-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .usp-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .usp-icon i {
+            color: var(--white);
+            font-size: 20px;
+        }
+
+        .usp-text h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--gray-dark);
+        }
+
+        .usp-text p {
+            color: var(--gray-medium);
+        }
+
+        .usps-visual {
+            position: relative;
+            height: 500px;
+        }
+
+        .floating-card {
+            position: absolute;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 25px;
+            width: 300px;
+            transition: var(--transition);
+        }
+
+        .floating-card:nth-child(1) {
+            top: 0;
+            left: 0;
+            z-index: 3;
+            transform: rotate(-5deg);
+            animation: floatCard1 8s infinite ease-in-out;
+        }
+
+        .floating-card:nth-child(2) {
+            top: 150px;
+            right: 0;
+            z-index: 2;
+            transform: rotate(3deg);
+            animation: floatCard2 10s infinite ease-in-out;
+        }
+
+        .floating-card:nth-child(3) {
+            bottom: 0;
+            left: 50px;
+            z-index: 1;
+            transform: rotate(-2deg);
+            animation: floatCard3 12s infinite ease-in-out;
+        }
+
+        @keyframes floatCard1 {
+            0%, 100% { transform: rotate(-5deg) translateY(0); }
+            50% { transform: rotate(-5deg) translateY(-15px); }
+        }
+
+        @keyframes floatCard2 {
+            0%, 100% { transform: rotate(3deg) translateY(0); }
+            50% { transform: rotate(3deg) translateY(-20px); }
+        }
+
+        @keyframes floatCard3 {
+            0%, 100% { transform: rotate(-2deg) translateY(0); }
+            50% { transform: rotate(-2deg) translateY(-10px); }
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        /* Trust Section */
+        .trust {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .trust-logos {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .trust-logo {
+            opacity: 0.6;
+            transition: var(--transition);
+            filter: grayscale(1);
+        }
+
+        .trust-logo:hover {
+            opacity: 1;
+            filter: grayscale(0);
+            transform: scale(1.05);
+        }
+
+        .trust-logo img {
+            height: 60px;
+        }
+
+        /* Industries Section */
+        .industries {
+            padding: 100px 0;
+            background: var(--blue-pale);
+        }
+
+        .industries-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .industry-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .industry-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .industry-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .industry-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(34, 57, 142, 0.8));
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+        }
+
+        .industry-title {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .industry-content {
+            padding: 25px;
+        }
+
+        .industry-desc {
+            color: var(--gray-medium);
+            margin-bottom: 20px;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--blue-dark) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .cta-subtitle {
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* News Section */
+        .news {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .news-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .news-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .news-content {
+            padding: 25px;
+        }
+
+        .news-date {
+            color: var(--primary-blue);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .news-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--gray-dark);
+        }
+
+        .news-excerpt {
+            color: var(--gray-medium);
+            margin-bottom: 20px;
+        }
+
+        .news-link {
+            color: var(--primary-blue);
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .news-link i {
+            margin-left: 5px;
+            transition: var(--transition);
+        }
+
+        .news-link:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: var(--gray-light);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-info {
+            padding-right: 40px;
+        }
+
+        .contact-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        .contact-desc {
+            color: var(--gray-medium);
+            margin-bottom: 40px;
+        }
+
+        .contact-details {
+            list-style: none;
+        }
+
+        .contact-detail {
+            display: flex;
+            margin-bottom: 25px;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .contact-icon i {
+            color: var(--white);
+            font-size: 20px;
+        }
+
+        .contact-text h4 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--gray-dark);
+        }
+
+        .contact-text p {
+            color: var(--gray-medium);
+        }
+
+        .contact-form {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--gray-dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(34, 57, 142, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--gray-dark);
+            color: var(--white);
+            padding: 80px 0 0;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+            gap: 40px;
+        }
+
+        .footer-col h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .footer-col h4:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 40px;
+            height: 2px;
+            background: var(--primary-blue);
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo .logo-cube {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .footer-logo .logo-text {
+            font-size: 20px;
+            color: var(--white);
+        }
+
+        .footer-desc {
+            color: #aaa;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--primary-blue);
+            transform: translateY(-3px);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+            padding-left: 5px;
+        }
+
+        .footer-contact {
+            list-style: none;
+        }
+
+        .footer-contact li {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--primary-blue);
+        }
+
+        .newsletter-form {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .newsletter-btn {
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-btn:hover {
+            background: var(--blue-light);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 60px;
+            padding: 25px 0;
+            text-align: center;
+            color: #aaa;
+            font-size: 0.875rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .industries-grid, .news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .usps-container, .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .usps-content {
+                padding-right: 0;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .hero-title {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 80px);
+                background: var(--white);
+                flex-direction: column;
+                padding: 40px 20px;
+                transition: var(--transition);
+                box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-item {
+                margin: 10px 0;
+            }
+            
+            .dropdown, .mega-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                width: 100%;
+                padding: 0;
+                margin-top: 10px;
+            }
+            
+            .mega-menu {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            
+            .hero-actions {
+                flex-direction: column;
+            }
+            
+            .services-grid, .industries-grid, .news-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-title, .usps-title, .contact-title, .cta-title {
+                font-size: 2rem;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .trust-logos {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-cube"></div>
+                <div class="logo-text">PFENNING</div>
+            </div>
+            
+            <div class="mobile-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item mega">
+                    <a href="#" class="nav-link">Logistics</a>
+                    <div class="mega-menu">
+                        <div class="mega-column">
+                            <h4>Warehouse Logistics</h4>
+                            <ul class="mega-links">
+                                <li><a href="#">Storage Solutions</a></li>
+                                <li><a href="#">Inventory Management</a></li>
+                                <li><a href="#">Order Fulfillment</a></li>
+                                <li><a href="#">Value-Added Services</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-column">
+                            <h4>Transport Logistics</h4>
+                            <ul class="mega-links">
+                                <li><a href="#">Road Transport</a></li>
+                                <li><a href="#">Sea Freight</a></li>
+                                <li><a href="#">Air Freight</a></li>
+                                <li><a href="#">Intermodal Solutions</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-column">
+                            <h4>Contract Logistics</h4>
+                            <ul class="mega-links">
+                                <li><a href="#">Supply Chain Management</a></li>
+                                <li><a href="#">Logistics Consulting</a></li>
+                                <li><a href="#">Customs Services</a></li>
+                                <li><a href="#">Project Logistics</a></li>
+                            </ul>
+                        </div>
+                        <div class="mega-column">
+                            <h4>Special Solutions</h4>
+                            <ul class="mega-links">
+                                <li><a href="#">Temperature-Controlled</a></li>
+                                <li><a href="#">Dangerous Goods</a></li>
+                                <li><a href="#">Oversized Cargo</a></li>
+                                <li><a href="#">Express Delivery</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Mobility</a>
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-item">Fleet Management</a>
+                        <a href="#" class="dropdown-item">Vehicle Logistics</a>
+                        <a href="#" class="dropdown-item">Mobility Solutions</a>
+                        <a href="#" class="dropdown-item">Innovation Hub</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Manufacturing</a>
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-item">Metal Processing</a>
+                        <a href="#" class="dropdown-item">Assembly Services</a>
+                        <a href="#" class="dropdown-item">Production Logistics</a>
+                        <a href="#" class="dropdown-item">Quality Control</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Personnel Leasing</a>
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-item">Temporary Staffing</a>
+                        <a href="#" class="dropdown-item">Specialized Personnel</a>
+                        <a href="#" class="dropdown-item">Training & Development</a>
+                        <a href="#" class="dropdown-item">HR Consulting</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            
+            <div class="header-actions">
+                <a href="#" class="btn btn-primary">Get Quote</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="floating-cubes">
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+        </div>
+        
+        <video autoplay muted loop class="hero-video">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-truck-on-a-highway-41507-large.mp4" type="video/mp4">
+        </video>
+        
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Part of Your Process</h1>
+                <p class="hero-subtitle">Innovative logistics solutions for a connected world. We deliver excellence through cutting-edge technology and decades of expertise.</p>
+                <div class="hero-actions">
+                    <a href="#" class="hero-btn primary">Our Services</a>
+                    <a href="#" class="hero-btn secondary">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Core Services</h2>
+                <p class="section-subtitle">Comprehensive logistics solutions tailored to your business needs</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-warehouse"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-title">Logistics</h3>
+                        <p class="service-desc">End-to-end supply chain solutions from warehousing to distribution.</p>
+                        <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-truck-moving"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-title">Mobility</h3>
+                        <p class="service-desc">Advanced fleet management and innovative mobility concepts.</p>
+                        <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-title">Manufacturing</h3>
+                        <p class="service-desc">Production services and industrial solutions for various sectors.</p>
+                        <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-title">Personnel Leasing</h3>
+                        <p class="service-desc">Specialized staffing solutions for logistics and industrial sectors.</p>
+                        <a href="#" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- USPs Section -->
+    <section class="usps">
+        <div class="container">
+            <div class="usps-container">
+                <div class="usps-content">
+                    <h2 class="usps-title">Why Choose Pfenning Logistics?</h2>
+                    <ul class="usps-list">
+                        <li class="usp-item">
+                            <div class="usp-icon">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div class="usp-text">
+                                <h4>Quality Certified</h4>
+                                <p>ISO 9001 certified processes ensuring the highest standards in all our services.</p>
+                            </div>
+                        </li>
+                        <li class="usp-item">
+                            <div class="usp-icon">
+                                <i class="fas fa-globe-europe"></i>
+                            </div>
+                            <div class="usp-text">
+                                <h4>Global Network</h4>
+                                <p>Extensive international presence with partners in over 50 countries worldwide.</p>
+                            </div>
+                        </li>
+                        <li class="usp-item">
+                            <div class="usp-icon">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="usp-text">
+                                <h4>Fast & Reliable</h4>
+                                <p>99.7% on-time delivery rate with real-time tracking for complete transparency.</p>
+                            </div>
+                        </li>
+                        <li class="usp-item">
+                            <div class="usp-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <div class="usp-text">
+                                <h4>24/7 Support</h4>
+                                <p>Round-the-clock customer service with dedicated account managers.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="usps-visual">
+                    <div class="floating-card">
+                        <h4 class="card-title">Digital Tracking</h4>
+                        <p>Real-time visibility of your shipments with our advanced tracking system.</p>
+                    </div>
+                    <div class="floating-card">
+                        <h4 class="card-title">Custom Solutions</h4>
+                        <p>Tailored logistics strategies designed specifically for your business needs.</p>
+                    </div>
+                    <div class="floating-card">
+                        <h4 class="card-title">Sustainable Logistics</h4>
+                        <p>Eco-friendly solutions reducing carbon footprint while maintaining efficiency.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+    <section class="trust">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Trusted By Industry Leaders</h2>
+                <p class="section-subtitle">We are proud to work with some of the most respected companies worldwide</p>
+            </div>
+            
+            <div class="trust-logos">
+                <div class="trust-logo">
+                    <i class="fas fa-certificate fa-3x"></i>
+                </div>
+                <div class="trust-logo">
+                    <i class="fas fa-award fa-3x"></i>
+                </div>
+                <div class="trust-logo">
+                    <i class="fas fa-medal fa-3x"></i>
+                </div>
+                <div class="trust-logo">
+                    <i class="fas fa-trophy fa-3x"></i>
+                </div>
+                <div class="trust-logo">
+                    <i class="fas fa-star fa-3x"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industries Section -->
+    <section class="industries">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Industries We Serve</h2>
+                <p class="section-subtitle">Specialized logistics solutions for diverse industry sectors</p>
+            </div>
+            
+            <div class="industries-grid">
+                <div class="industry-card">
+                    <div class="industry-image" style="background-image: url('services.jpg');">
+                        <div class="industry-overlay">
+                            <h3 class="industry-title">Automotive</h3>
+                        </div>
+                    </div>
+                    <div class="industry-content">
+                        <p class="industry-desc">Just-in-time delivery and specialized handling for automotive components and finished vehicles.</p>
+                        <a href="#" class="service-link">Explore Solutions <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="industry-card">
+                    <div class="industry-image" style="background-image: url('services\ 2.webp');">
+                        <div class="industry-overlay">
+                            <h3 class="industry-title">Consumer Goods</h3>
+                        </div>
+                    </div>
+                    <div class="industry-content">
+                        <p class="industry-desc">Efficient distribution networks for retail and e-commerce fulfillment.</p>
+                        <a href="#" class="service-link">Explore Solutions <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="industry-card">
+                    <div class="industry-image" style="background-image: url('services\ 3.avif');">
+                        <div class="industry-overlay">
+                            <h3 class="industry-title">Healthcare</h3>
+                        </div>
+                    </div>
+                    <div class="industry-content">
+                        <p class="industry-desc">Temperature-controlled logistics for pharmaceuticals and medical devices.</p>
+                        <a href="#" class="service-link">Explore Solutions <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2 class="cta-title">Ready to Optimize Your Supply Chain?</h2>
+            <p class="cta-subtitle">Contact us today for a customized logistics solution that drives your business forward.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">Get Started</a>
+                <a style="color: white;" href="#" class="btn btn-secondary">Request Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Latest News & Insights</h2>
+                <p class="section-subtitle">Stay updated with the latest trends and developments in logistics</p>
+            </div>
+            
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-image" style="background-image: url('https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="news-content">
+                        <div class="news-date">March 15, 2025</div>
+                        <h3 class="news-title">Sustainable Logistics Initiatives</h3>
+                        <p class="news-excerpt">How we're reducing carbon emissions across our transportation network.</p>
+                        <a href="#" class="news-link">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-image" style="background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="news-content">
+                        <div class="news-date">February 28, 2025</div>
+                        <h3 class="news-title">New Warehouse Facility Opening</h3>
+                        <p class="news-excerpt">Expanding our network with a state-of-the-art distribution center.</p>
+                        <a href="#" class="news-link">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-image" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="news-content">
+                        <div class="news-date">January 12, 2025</div>
+                        <h3 class="news-title">Digital Transformation in Logistics</h3>
+                        <p class="news-excerpt">Leveraging AI and IoT for smarter supply chain management.</p>
+                        <a href="#" class="news-link">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <div class="container">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h2 class="contact-title">Get In Touch</h2>
+                    <p class="contact-desc">Have questions about our services? Our team is here to help you find the perfect logistics solution for your business.</p>
+                    
+                    <ul class="contact-details">
+                        <li class="contact-detail">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Our Headquarters</h4>
+                                <p>Logistics Street 123, 12345 City, Country</p>
+                            </div>
+                        </li>
+                        <li class="contact-detail">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Phone Number</h4>
+                                <p>+1 234 567 8900</p>
+                            </div>
+                        </li>
+                        <li class="contact-detail">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email Address</h4>
+                                <p>info@pfenning-logistics.com</p>
+                            </div>
+                        </li>
+                        <li class="contact-detail">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Business Hours</h4>
+                                <p>Mon - Fri: 8:00 AM - 6:00 PM</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company" class="form-label">Company</label>
+                            <input type="text" id="company" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <div class="logo-cube"></div>
+                        <div class="logo-text">PFENNING</div>
+                    </div>
+                    <p class="footer-desc">Pfenning Logistics provides innovative supply chain solutions with a focus on reliability, efficiency, and customer satisfaction. Part of your process since 1985.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Industries</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Logistics</a></li>
+                        <li><a href="#">Mobility</a></li>
+                        <li><a href="#">Manufacturing</a></li>
+                        <li><a href="#">Personnel Leasing</a></li>
+                        <li><a href="#">Consulting</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">News & Insights</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">White Papers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>Newsletter</h4>
+                    <p class="footer-desc">Subscribe to our newsletter to receive updates on industry trends and company news.</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Your email address">
+                        <button type="submit" class="newsletter-btn"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Pfenning Logistics. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            mobileToggle.querySelector('i').classList.toggle('fa-bars');
+            mobileToggle.querySelector('i').classList.toggle('fa-times');
+        });
+
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+                mobileToggle.querySelector('i').classList.add('fa-bars');
+                mobileToggle.querySelector('i').classList.remove('fa-times');
+            });
+        });
+
+        // Animate USPs on scroll
+        const uspItems = document.querySelectorAll('.usp-item');
+        
+        function checkScroll() {
+            uspItems.forEach((item, index) => {
+                const itemTop = item.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (itemTop < windowHeight - 100) {
+                    setTimeout(() => {
+                        item.classList.add('visible');
+                    }, index * 200);
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            contactForm.reset();
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
